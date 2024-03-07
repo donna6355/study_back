@@ -8,6 +8,11 @@ const productRouter = require("./products.js");
 app
   .use(express.json())
   .use((req, res, next) => {
+    console.log(req.query);
+    if (req.query.token) {
+      console.log("has token");
+      return;
+    }
     next();
   })
   .use("/products", productRouter)
