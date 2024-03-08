@@ -2,8 +2,8 @@ console.log("hey");
 console.log(process.env.test);
 
 const express = require("express");
+const router = require("./routers");
 const app = express();
-const productRouter = require("./products.js");
 
 app
   .use(express.json())
@@ -15,9 +15,9 @@ app
     }
     next();
   })
-  .use("/products", productRouter)
   .get("/", (req, res) => {
     console.log("Hi!");
-    res.send("good");
+    res.sendStatus(200); //health check
   })
+  .use(router)
   .listen(3000, () => console.log("Server is runnig on 3000"));
