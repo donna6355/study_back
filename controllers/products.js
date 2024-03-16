@@ -1,4 +1,4 @@
-const productServices = require("../services/product");
+const productServices = require("../services/products");
 
 const createProduct = async (req, res) => {
   try {
@@ -17,7 +17,7 @@ const createProduct = async (req, res) => {
 };
 
 const getAllProducts = async (req, res) => {
-  const page = parseInt(req.query.page) ?? 1;
+  const page = parseInt(req.query.page) ?? 1; // NaN
   const limit = parseInt(req.query.limit) ?? 10;
   const keyword = req.query.keyword ?? "";
   try {

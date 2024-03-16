@@ -9,7 +9,7 @@ const getAllProducts = async (page, limit, keyword) => {
   const total = await Product.count();
   const lastPage = Math.ceil(total / limit);
   const products = await Product.findAll({
-    where: { name: { [Op.like]: `%${keyword}%` } },
+    where: { name: { [Op.like]: `%${keyword}%` } }, //TODO check needed OP is not defined
     limit, //how many items
     offset: (page - 1) * limit, // except first n items
   });
