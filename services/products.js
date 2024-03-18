@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const { Op } = require("sequelize");
 
 const createProduct = async (name, price) => {
   const product = await Product.create({ name, price });
@@ -6,10 +7,10 @@ const createProduct = async (name, price) => {
 };
 
 const getAllProducts = async (page, limit, keyword) => {
-  const total = await Product.count();
+  const total = await Product.count(); //?? not for the searched items??
   const lastPage = Math.ceil(total / limit);
   const products = await Product.findAll({
-    where: { name: { [Op.like]: `%${keyword}%` } }, //TODO check needed OP is not defined
+    where: { name: { [Op.like]: `%${keyword}%` } },
     limit, //how many items
     offset: (page - 1) * limit, // except first n items
   });

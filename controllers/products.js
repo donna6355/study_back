@@ -17,8 +17,8 @@ const createProduct = async (req, res) => {
 };
 
 const getAllProducts = async (req, res) => {
-  const page = parseInt(req.query.page) ?? 1; // NaN
-  const limit = parseInt(req.query.limit) ?? 10;
+  const page = parseInt(req.query.page) || 1; // NaN
+  const limit = parseInt(req.query.limit) || 10;
   const keyword = req.query.keyword ?? "";
   try {
     const products = await productServices.getAllProducts(page, limit, keyword);
@@ -54,7 +54,10 @@ const updateProduct = async (req, res) => {
       res.sendStatus(404);
       return;
     }
-    res.json(product);
+
+    res.json(isSuccessful);
+    // res.json(product); //TODO 500 internal server error
+    //how to get modified data?
   } catch (error) {
     console.error(error);
     res.sendStatus(500);
