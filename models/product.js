@@ -26,7 +26,7 @@ const Product = db.define(
 );
 
 // // https://sequelize.org/docs/v6/core-concepts/model-basics/#model-synchronization
-Product.sync({ alter: true });
+Product.sync({ alter: true }); //better to use migrate
 
 /*
 User.sync() - This creates the table if it doesn't exist (and does nothing if it already exists)
