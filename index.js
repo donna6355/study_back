@@ -22,7 +22,7 @@ const app = express();
 //   .use(router)
 //   .listen(3000, () => console.log("Server is runnig on 3000"));
 
-app.use(express.json());
+app.use(express.json()); //TODO cookie parser
 app.use(express.urlencoded({ extended: false }));
 app.get("/", (_, res) => {
   // for health check
