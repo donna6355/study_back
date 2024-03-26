@@ -32,10 +32,39 @@ const login = async (email, password) => {
   }
 };
 
+const refreshToken = async (refreshToken) => {
+  try {
+    const user = await User.getUserByRefreshToken(refreshToken);
+    if (!user) return null;
+
+    const accessToken = user.generateAccessToken();
+    const newRefreshToken = user.generateRefreshToken();
+    return {
+      accessToken,
+      refreshToken: newRefreshToken,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
+const logout = async (refreshToken) => {
+  try {
+    await User.removeRefreshToken(refreshToken);
+  } catch (error) {
+    throw error;
+  }
+};
+
+// access token이 유효하면 true를 반환
+const isAuthorized = (token) => {
+  return User.verifyToken(token);
+};
+
 module.exports = {
   createUser,
   login,
   refreshToken,
   logout,
-  isAthourized,
+  isAuthorized,
 };

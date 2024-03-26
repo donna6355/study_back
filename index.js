@@ -3,6 +3,7 @@
 
 const express = require("express");
 const routes = require("./routers");
+const cookieParser = require("cookie-parser");
 const app = express();
 
 // app
@@ -22,7 +23,8 @@ const app = express();
 //   .use(router)
 //   .listen(3000, () => console.log("Server is runnig on 3000"));
 
-app.use(express.json()); //TODO cookie parser
+app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.get("/", (_, res) => {
   // for health check
@@ -30,5 +32,5 @@ app.get("/", (_, res) => {
 });
 app.use(routes);
 app.listen(process.env.PORT, () => {
-  console.log(`Server running on port 3000`);
+  console.log(`Server running on port ${process.env.PORT}`);
 });

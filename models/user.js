@@ -66,16 +66,16 @@ User.prototype.generateRefreshToken = async function () {
 
 //verify refresh token
 User.getUserByRefreshToken = async function (refreshToken) {
-  const { id } = jwt.verify(token, process.env.JWT_SECRET);
+  const { id } = jwt.verify(refreshToken, process.env.JWT_SECRET);
   const user = await User.findOne({
     include: "refreshTokens",
     where: {
       id,
-      "refreshTokens.token": refreshToken,
-      "refreshTokens.expiresAt": { [Op.gte]: new Date() },
+      "$refreshTokens.token$": refreshToken,
+      "$refreshTokens.expiresAt$": { [Op.gte]: new Date() },
     },
   });
-  return user;
+  return user; //returns null always...TT // multi refreshtokens are saved... how to handle them..
 };
 
 // remove refresh token
