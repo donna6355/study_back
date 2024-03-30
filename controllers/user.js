@@ -60,6 +60,12 @@ const refresh = async (req, res) => {
 };
 const logout = async (req, res) => {
   try {
+    //TODO no auth check????
+    const token = req.headers.authorization;
+    if (!token) return res.sendStatus(400);
+    const refreshToken = req.cookies.refreshToken;
+    const result = await userService.logout(refreshToken);
+    if (!result) return res.sendStatus(400);
     //auto login need to keep???? gotta remove refresh token???
     res.cookie("refreshToken", "", {
       httpOnly: true,

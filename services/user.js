@@ -38,7 +38,7 @@ const refreshToken = async (refreshToken) => {
     if (!user) return null;
 
     const accessToken = user.generateAccessToken();
-    const newRefreshToken = user.generateRefreshToken();
+    const newRefreshToken = await user.generateRefreshToken();
     return {
       accessToken,
       refreshToken: newRefreshToken,
