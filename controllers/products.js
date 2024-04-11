@@ -2,6 +2,15 @@ const productServices = require("../services/products");
 
 const createProduct = async (req, res) => {
   try {
+    const { authorization } = req.headers;
+    if (
+      !authorization ||
+      !authorization.startsWith("Bearer ") ||
+      !userServices.isAuthorized(authorization.replace("Bearer ", ""))
+    ) {
+      res.sendStatus(401);
+      return;
+    }
     const { name, price } = req.body;
     // Validate the request
     if (typeof name !== "string" || typeof price !== "number") {

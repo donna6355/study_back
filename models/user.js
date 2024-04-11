@@ -64,6 +64,7 @@ User.prototype.generateRefreshToken = async function () {
   return token;
 };
 
+// hook
 //verify refresh token
 User.getUserByRefreshToken = async function (refreshToken) {
   const { id } = jwt.verify(refreshToken, process.env.JWT_SECRET);
