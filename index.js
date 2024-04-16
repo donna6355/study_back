@@ -5,6 +5,7 @@ const express = require("express");
 const routes = require("./routers");
 const cookieParser = require("cookie-parser");
 const app = express();
+const morgan = require("morgan");
 
 // app
 //   .use(express.json())
@@ -26,6 +27,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use(morgan("tiny"));
 app.get("/", (_, res) => {
   // for health check
   res.sendStatus(200);
